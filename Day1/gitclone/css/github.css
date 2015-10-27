@@ -54,6 +54,15 @@
     margin-right: 10px;
 }
 
+.v-name{
+    font-size: 20px;
+    color: #666;
+}
+
+.v-detail{
+    font-size: 14px;
+}
+
 .main{
     flex-grow: 1;
     margin-left: 10px;
@@ -112,13 +121,19 @@
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 .repos-box{
-    width: 48.5%;
+    width: 50%;
+    margin-right: 20px;
     border-radius: 3px 3px 0 0;
     border: 1px solid #d8d8d8;
     display: flex;
     flex-direction: column;
+}
+
+.repos-box:last-child{
+    margin-right: 0px;
 }
 
 .box-header{
@@ -133,7 +148,7 @@
 
 .box-content{
     display: flex;
-    padding-left: 10px;
+    padding: 6px 10px;
     justify-content: space-around;
     border-top: 1px solid #d8d8d8;
 
@@ -146,11 +161,13 @@
     font-size: 14px;
     font-weight: bold;
 }
-.box-content img{
+.icon{
     height: 50%;
+    padding-top: 5px;
 }
 
 .star{
+    height: 50%;
     padding-top: 15px;
 }
 
