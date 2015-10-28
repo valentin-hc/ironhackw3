@@ -25,6 +25,8 @@
 
 
 
+
+
 function caesarCipher (message, shift) {
 	var inbound = function(letter, shift) {
 		if ((letter >= "a" && letter <= "z") && (letter.charCodeAt(0) + shift < 97) || (letter >= "A" && letter <= "Z") && (letter.charCodeAt(0) + shift < 65)) {
@@ -41,8 +43,7 @@ function caesarCipher (message, shift) {
 		}
 	} 
 	shift = typeof shift !== 'undefined' ? shift : -3;
-	array = message.split("")
-	var encrypted = array.map(function(letter) {
+	var encrypted = message.split("").map(function(letter) {
 		return inbound(letter, shift);
 	});
 	return encrypted.join("");
