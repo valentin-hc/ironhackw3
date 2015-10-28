@@ -27,35 +27,23 @@
 
 function caesarCipher (message, shift) {
 	var inbound = function(letter, shift) {
-		if ((letter >= "a" && letter <= "z") && (letter.charCodeAt(0) + shift < 97)) {
-			return (letter.charCodeAt(0) + 26 + shift)
+		if ((letter >= "a" && letter <= "z") && (letter.charCodeAt(0) + shift < 97) || (letter >= "A" && letter <= "Z") && (letter.charCodeAt(0) + shift < 65)) {
+			return String.fromCharCode(letter.charCodeAt(0) + 26 + shift)
 		}
-		else if ((letter >= "a" && letter <= "z") && (letter.charCodeAt(0) + shift > 122)) {
-			return (letter.charCodeAt(0) - 26 + shift)
-		}
-		else if ((letter >= "A" && letter <= "Z") && (letter.charCodeAt(0) + shift < 65)) {
-			return (letter.charCodeAt(0) + 26 + shift)
-		}
-		else if ((letter >= "A" && letter <= "Z") && (letter.charCodeAt(0) + shift > 90)) {
-			return (letter.charCodeAt(0) - 26 + shift)
+		else if (((letter >= "a" && letter <= "z") && (letter.charCodeAt(0) + shift > 122)) || (letter >= "A" && letter <= "Z") && (letter.charCodeAt(0) + shift > 90)) {
+			return String.fromCharCode(letter.charCodeAt(0) - 26 + shift)
 		}
 		else if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
-			return (letter.charCodeAt(0) + shift)
+			return String.fromCharCode(letter.charCodeAt(0) + shift)
 		}
 		else {
 			return letter;
 		}
 	} 
-
 	shift = typeof shift !== 'undefined' ? shift : -3;
 	array = message.split("")
 	var encrypted = array.map(function(letter) {
-		if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
-			return String.fromCharCode(inbound(letter, shift));
-		}
-		else {
-			return letter;
-		}
+		return inbound(letter, shift);
 	});
 	return encrypted.join("");
 }
