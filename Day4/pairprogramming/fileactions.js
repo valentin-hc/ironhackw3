@@ -3,7 +3,7 @@ var fileActions = function(err, file){
         throw err;
     }
     var episodes = JSON.parse(file);
-    filterLow(episodes);
+    episodes = filterLow(episodes);
     sortByNumber(episodes);
     format(episodes);
     
@@ -31,15 +31,14 @@ var repeatString = function(string, number) {
 
 
 var sortByNumber = function(array) {
-	return array.sort(function(a,b) {
+	array.sort(function(a,b) {
 		return (a.episode_number) - (b.episode_number);
 	});
 }
 
 var filterLow = function(array) {
 	return array.filter(function(object) {
-		console.log(object.rating)
-		return parseInt(object.rating) <= 8.5;
+		return object.rating <= 8.5;
 	});
 };
 
