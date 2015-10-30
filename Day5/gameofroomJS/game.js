@@ -1,10 +1,10 @@
 "use strict"
+
 var read = require("read");
 var rooms = require("./room.js");
 var Player = require("./player.js");
 
 var Game = function(rooms){
-	// this.rooms = rooms;
 	this.current = 0;
 	this.player = new Player();
 	this.options = {
@@ -28,7 +28,9 @@ Game.prototype.roomAnswer = function (err, answer){
 };
 
 Game.prototype.translateAnswer = function (answer) {
-	this.pickAndDrop(answer);
+	this.checkRoom(answer);
+	this.pick(answer);
+	this.drop(answer);
 	if (answer === "exit") {
 		process.exit();
 	}else if (answer === "N") {
@@ -42,22 +44,47 @@ Game.prototype.translateAnswer = function (answer) {
 	}else if (answer === "Inventory"){
 		return this.player.inventory;
 	}else {
-		return "What was that?"
+		return "Just chillin' here."
 	}
 };
 
-Game.prototype.pickAndDrop = function (answer) {
+Game.prototype.pick = function (answer) {
 	if (answer.substr(0,4) === "Pick") {
 		var object = answer.split("Pick up ")[1];
-		this.player.inventory.push(object);
-	} else if (answer.substr(0,4) === "Drop") {
-		var object = answer.split("Drop ")[1];
-		var index = this.player.inventory.indexOf(object);
-		if (index > -1) {
-			this.player.inventory.splice(index, 1);
+		var itemIndex = rooms[this.current].item.indexOf(object);
+		if ( itemIndex > -1 ) {
+			this.player.inventory.push(object);
+			rooms[this.current].item.splice(itemIndex, 1);
+		} 
+		else {
+			console.log("There is no " + object + " in this room.")
 		}
 	}
 };
+
+Game.prototype.drop = function (answer) {
+	if (answer.substr(0,4) === "Drop") {
+		var object = answer.split("Drop ")[1];
+		var indexItem = this.player.inventory.indexOf(object);
+		if (indexItem > -1) {
+			rooms[this.current].item.push(object);
+			this.player.inventory.splice(indexItem, 1);
+		}e
+		else {
+			console.log("You don't have " + object + " in your inventory.")
+		}
+	}
+};
+
+Game.prototype.checkRoom = function(answer) {
+	if (answer === "Check room") {
+		console.log("In the room you see : ")
+		rooms[this.current].item.forEach(function(i) {
+			console.log("a " + i)
+		});
+	}
+
+}
 
 
 Game.prototype.set = function() {
