@@ -69,8 +69,7 @@ Game.prototype.drop = function (answer) {
 		if (indexItem > -1) {
 			rooms[this.current].item.push(object);
 			this.player.inventory.splice(indexItem, 1);
-		}e
-		else {
+		}else {
 			console.log("You don't have " + object + " in your inventory.")
 		}
 	}

@@ -1,5 +1,5 @@
 var Player = function() {
-	this.inventory = ["test"]
+	this.inventory = ["Torch"]
 };
 
 Player.prototype.pickup = function(item) {
